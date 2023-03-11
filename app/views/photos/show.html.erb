@@ -1,7 +1,7 @@
 <div>
   <div>
     <h1>
-      Photo #<%= @the_photo.id %> details
+      Photo Details
     </h1>
 
     <div>
@@ -20,17 +20,17 @@
 
     <dl>
       <dt>
-        Caption
-      </dt>
-      <dd>
-        <%= @the_photo.caption %>
-      </dd>
-
-      <dt>
         Image
       </dt>
       <dd>
         <%= @the_photo.image %>
+      </dd>
+
+      <dt>
+        Caption
+      </dt>
+      <dd>
+        <%= @the_photo.caption %>
       </dd>
 
       <dt>
@@ -41,26 +41,11 @@
       </dd>
 
       <dt>
-        Comments count
-      </dt>
-      <dd>
-        <%= @the_photo.comments_count %>
-      </dd>
-
-      <dt>
         Likes count
       </dt>
       <dd>
         <%= @the_photo.likes_count %>
       </dd>
-
-      <dt>
-        Likes count
-      </dt>
-      <dd>
-        <%= @the_photo.likes_count %>
-      </dd>
-
       <dt>
         Comments count
       </dt>
@@ -68,19 +53,15 @@
         <%= @the_photo.comments_count %>
       </dd>
 
-      <dt>
-        Created at
-      </dt>
+      <% @the_photo.fans.each do |a_fan| %>
       <dd>
-        <%= time_ago_in_words(@the_photo.created_at) %> ago
+        <%= a_fan.username %> + ", "
       </dd>
+      <% end %>
 
       <dt>
-        Updated at
+        Add a fan
       </dt>
-      <dd>
-        <%= time_ago_in_words(@the_photo.updated_at) %> ago
-      </dd>
     </dl>
   </div>
 </div>
