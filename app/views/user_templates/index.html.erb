@@ -31,23 +31,27 @@
       <%end%>
     </td>
 
-    <% if @current_user != nil %>
+    <% if @current_user != nil %> 
       <td>
+        <%# the_user = user.id %>
+        <%#matching_user = FollowRequest.where({ :recipient_id => the_user})%>
+
+        <%# follower_status  = matching_user.status%>
         <% user.sent_follow_requests.each do |a_status| %>
+
           <% if a_status.status == "accepted" %>
             Unfollow
             <% elsif a_status.status == "pending" %>
-            Pending
+           Pending
               <% elsif a_status.status == "rejected" %>
-              blank
+            blank
               <% else %>
               <button>Follow</button>
 
+  
           <% end %>
              
-
-        <%end%>
-
+        <% end %>
 
       </td>
     <% end %>

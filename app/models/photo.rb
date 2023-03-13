@@ -7,6 +7,7 @@
 #  comments_count :integer
 #  image          :string
 #  likes_count    :integer
+#  newImageString :string
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  owner_id       :integer

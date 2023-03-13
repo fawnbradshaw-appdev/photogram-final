@@ -57,7 +57,10 @@ class UserAuthenticationController < ApplicationController
   end
     
   def edit_profile_form
-    render({ :template => "user_authentication/edit_profile.html.erb" })
+    
+    
+    #render({ :template => "user_authentication/edit_profile.html.erb" })
+    redirect_to("/users/#{user.username}")
   end
 
   def update
