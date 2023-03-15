@@ -11,19 +11,13 @@
         </a>
       </div>
 
-      <div>
-        <a href="/delete_photo/<%= @the_photo.id %>">
-          Delete photo
-        </a>
-      </div>
-    </div>
 
     <dl>
       <dt>
         Image
       </dt>
       <dd>
-        <%= @the_photo.image %>
+        <img src="<%= @the_photo.image %>">
       </dd>
 
       <dt>
@@ -41,6 +35,13 @@
       </dd>
 
       <dt>
+        Posted
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_photo.created_at) %> ago
+      </dd>
+
+      <dt>
         Likes count
       </dt>
       <dd>
@@ -53,15 +54,52 @@
         <%= @the_photo.comments_count %>
       </dd>
 
-      <% @the_photo.fans.each do |a_fan| %>
+      <dt>
+        Fans
+      </dt>
+      
       <dd>
-        <%= a_fan.username %> + ", "
+        <% @the_photo.fans.each do |a_fan| %>
+        <%= a_fan.username %>,
+        <% end %>
       </dd>
-      <% end %>
+      
 
       <dt>
         Add a fan
       </dt>
+      <dd>
+        <form action="/insert_like" method="post">
+          <input type="hidden" value="<%= @current_user.id %>" name="query_fan_id">
+          <input type="hidden" value="<%= @the_photo.id %>" name="query_photo_id">
+          <button>Like</button>
+        </form>
+      </dd>
+
+      <% if session.fetch(:user_id) == @the_photo.owner_id %>
+        <dt>Edit photo</dt>
+        <dd>
+
+            <form action="/modify_photo/<%= @the_photo.id %>" method="post" enctype="multipart/form-data">
+            <label for="browser_image">Image URL</label>
+            <input id="browser_image" type="file" name="query_image" placeholder="Enter a URL for the image..." value="https://robohash.org/<%= @the_photo.id %>">
+          
+            <label for="browser_caption">Caption</label>
+            <textarea id="browser_caption" name="query_caption" placeholder="<%= @the_photo.caption %>"></textarea>
+
+            <input id="browser_photo_owner_id" type="hidden" value="<%= @the_photo.owner_id %>" name="query_owner_id">
+          
+            <button>Update photo</button>
+          </form>
+        </dd>
+      <% end %>
+
+      <dt>Delete photo</dt>
+      <dd>
+        <a href="/delete_photo/<%= @the_photo.id %>">
+          Delete this photo
+        </a>
+      </dd>
     </dl>
   </div>
 </div>
@@ -100,38 +138,7 @@
         <input type="text" id="owner_id_box" name="query_owner_id" value="<%= @the_photo.owner_id %>">
       </div>
 
-      <div>
-        <label for="comments_count_box">
-          Comments count
-        </label>
-
-        <input type="text" id="comments_count_box" name="query_comments_count" value="<%= @the_photo.comments_count %>">
-      </div>
-
-      <div>
-        <label for="likes_count_box">
-          Likes count
-        </label>
-
-        <input type="text" id="likes_count_box" name="query_likes_count" value="<%= @the_photo.likes_count %>">
-      </div>
-
-      <div>
-        <label for="likes_count_box">
-          Likes count
-        </label>
-
-        <input type="text" id="likes_count_box" name="query_likes_count" value="<%= @the_photo.likes_count %>">
-      </div>
-
-      <div>
-        <label for="comments_count_box">
-          Comments count
-        </label>
-
-        <input type="text" id="comments_count_box" name="query_comments_count" value="<%= @the_photo.comments_count %>">
-      </div>
-
+      
       <button>
         Update photo
       </button>
