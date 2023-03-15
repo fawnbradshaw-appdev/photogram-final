@@ -69,11 +69,19 @@
         Add a fan
       </dt>
       <dd>
-        <form action="/insert_like" method="post">
-          <input type="hidden" value="<%= @current_user.id %>" name="query_fan_id">
-          <input type="hidden" value="<%= @the_photo.id %>" name="query_photo_id">
-          <button>Like</button>
-        </form>
+       <% current_fan = Like.where({ :photo_id => @the_photo.id, :fan_id => session.fetch(:user_id)}).at(0) %>
+       <% if current_fan == nil %>
+          <form action="/insert_like" method="post">
+            <input type="hidden" value="<%= @current_user.id %>" name="query_fan_id">
+            <input type="hidden" value="<%= @the_photo.id %>" name="query_photo_id">
+            <button>Like</button>
+          </form>
+        <% else %>
+          <a href="/delete_like/<%= current_fan.id %>">
+            Unlike
+          </a>
+        <% end %>
+      
       </dd>
 
       <% if session.fetch(:user_id) == @the_photo.owner_id %>
