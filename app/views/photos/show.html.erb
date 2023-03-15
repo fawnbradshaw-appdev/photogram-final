@@ -132,43 +132,17 @@
   <% end %> 
   </table>
 
-<div>
-  <div>
-    <h2>
-      Edit photo
-    </h2>
+  <h3>Add a new comment</h3>
 
-    <form action="/modify_photo/<%= @the_photo.id %>"  method="post" >
-      <div>
-        <label for="caption_box">
-          Caption
-        </label>
+  <form action="/insert_comment" method="post">
+    <input type="hidden" value="<%= @the_photo.id %>" name="query_photo_id">
+    
+    <label for="browser_comment">Comment</label>
+    <textarea id="browser_comment" name="query_body" placeholder="Enter a comment..."></textarea>
 
-        <input type="text" id="caption_box" name="query_caption" value="<%= @the_photo.caption %>">
-      </div>
 
-      <div>
-        <label for="image_box">
-          Image
-        </label>
+    <button>Add comment</button>
+  </form>
 
-        <input type="text" id="image_box" name="query_image" value="<%= @the_photo.image %>">
-      </div>
-
-      <div>
-        <label for="owner_id_box">
-          Owner
-        </label>
-
-        <input type="text" id="owner_id_box" name="query_owner_id" value="<%= @the_photo.owner_id %>">
-      </div>
-
-      
-      <button>
-        Update photo
-      </button>
-    </form>
-  </div>
-</div>
 
 <hr>
