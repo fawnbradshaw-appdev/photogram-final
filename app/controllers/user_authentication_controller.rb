@@ -57,10 +57,15 @@ class UserAuthenticationController < ApplicationController
   end
     
   def edit_profile_form
+
+    if session[:user_id] != nil 
+      render({ :template => "user_authentication/edit_profile.html.erb" })
+    else
+      redirect_to("/user_sign_in", { :alert => "You have to sign in first."})
+    end
     
     
-    #render({ :template => "user_authentication/edit_profile.html.erb" })
-    redirect_to("/users/#{user.username}")
+    #redirect_to("/users/#{user.username}")
   end
 
   def update
@@ -70,7 +75,9 @@ class UserAuthenticationController < ApplicationController
     @user.password_confirmation = params.fetch("query_password_confirmation")
     @user.username = params.fetch("query_username")
     # @user.comments_count = params.fetch("query_comments_count")
+    @user.comments_count = session.fetch(:comments_count)
     # @user.likes_count = params.fetch("query_likes_count")
+    @user.likes_count = session.fetch(:likes_count)
     @user.private = params.fetch("query_private", false)
 
     
