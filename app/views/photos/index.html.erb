@@ -60,9 +60,13 @@
       </tr>
 
       <% @list_of_photos.each do |a_photo| %>
+      <% privacy = User.where({ :id => a_photo.owner.id }).at(0)%>
+
+      <% if privacy.private == false %>
       <tr>
         <td>
-          <%= a_photo.image %>
+          <%#= a_photo.image %>
+          <img src="<%= a_photo.image %>">
         </td>
 
         <td>
@@ -87,6 +91,7 @@
           </a>
         </td>
       </tr>
+      <% end %>
       <% end %>
     </table>
   </div>
