@@ -19,6 +19,8 @@ class UsersController <ApplicationController
   end
 
   def feed
+    
+  if session[:user_id] != nil
     url_username = params.fetch("path_username")
     matching_usernames = User.where({ :username => url_username })
 
@@ -26,6 +28,9 @@ class UsersController <ApplicationController
    
    
     render ({ :template => "user_templates/feed.html.erb"})
+  else
+    redirect_to("/", { :alert => "You're not authorized for that."})
+  end
    
   end
 

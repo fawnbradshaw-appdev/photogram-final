@@ -45,7 +45,11 @@
     <th></th>
   </tr>
 
+
 <% @the_user.feed.each do |a_photo|%>
+  <% follower = FollowRequest.where({:recipient_id => a_photo.owner_id, :sender_id => session.fetch(:user_id)}).at(0)%>
+
+  <% if follower.status == "accepted" %>
   <tr>
     <td> 
       <img src="<%= a_photo.image %>"> 
@@ -66,5 +70,6 @@
       <a href="/photos/<%= a_photo.id %>">Show details</a> 
     </td>
   </tr>
+  <% end %>
   <% end %>
 </table>
